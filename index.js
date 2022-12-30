@@ -1,14 +1,14 @@
 const express = require('express');
 const cors = require('cors')
-const port = process.env.PORT || 5000;
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const port =  5000;
 require('colors')
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
-app.use(cors())
 
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://Motion:Motion123@cluster0.il5mbbt.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -213,7 +213,9 @@ app.get('/task/completed', async(req, res)=>{
 })
 
 
-
+app.get('/', (req, res)=>{
+    res.send('Motion server is running')
+})
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
